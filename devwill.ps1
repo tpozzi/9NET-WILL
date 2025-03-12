@@ -17,11 +17,8 @@ if (!(Test-Path -Path $downloadPath)) {
 
 $logFile = "$downloadPath\install_log.txt"
 Write-Host "Caminho do log: $logFile"
-
-# Não apague o arquivo de log, se ele já existir, apenas adicione mais informações
-if (!(Test-Path $logFile)) {
-    New-Item -ItemType File -Path $logFile | Out-Null
-}
+if (Test-Path $logFile) { Remove-Item $logFile -Force }
+New-Item -ItemType File -Path $logFile | Out-Null
 
 $programs = @(
     @{ Name="Power BI"; Check="Power BI Desktop"; URL="https://download.microsoft.com/download/8/8/0/880bca75-79dd-466a-927d-1abf1f5454b0/PBIDesktopSetup_x64.exe"; Args="/quiet /norestart"; },
